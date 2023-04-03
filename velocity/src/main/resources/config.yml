@@ -1,0 +1,11 @@
+blacklisted-words:
+  - "survivalunidos"
+  - "vivalunidos"
+  - "survivalunid"
+  - "minecraft.casa"
+  - "survival-unidos"
+  - "play.rocketcraftmc.com"
+  - "rocketcraftmc.com"
+  - "play.rocketcraftmc"
+ban-reason: "Spam"
+punishment-command: "ipban"
