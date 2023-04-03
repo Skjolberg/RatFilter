@@ -12,10 +12,18 @@ import org.spongepowered.configurate.ConfigurateException;
 import org.spongepowered.configurate.ConfigurationNode;
 import org.spongepowered.configurate.yaml.YamlConfigurationLoader;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
 import java.nio.file.Path;
 
-@Plugin(id = "ratfilter", name = "Rat filter", version = "0.1.0-SNAPSHOT",
-        url = "https://davamu.me", description = "Filter for rats", authors = {"DaVaMu"})
+@Plugin(
+        id = "ratfilter",
+        name = "Rat filter",
+        version = "0.1.0-SNAPSHOT",
+        url = "https://davamu.me",
+        description = "Filter for rats",
+        authors = {"DaVaMu"})
 public class RatFilterVelocity {
 
     private final Path pluginPath;
@@ -31,7 +39,7 @@ public class RatFilterVelocity {
 
     @Subscribe
     public void onProxyInitialize(final ProxyInitializeEvent event) {
-        ConfigurationNode node = loadConfig(pluginPath);
+        ConfigurationNode node = registerConfig(pluginPath);
         if (node != null) {
             server.getEventManager().register(this, new PlayerChatListener(node, server, logger));
         } else {
@@ -40,7 +48,19 @@ public class RatFilterVelocity {
 
     }
 
-    private ConfigurationNode loadConfig(Path pluginPath) {
+    private ConfigurationNode registerConfig(Path pluginPath) {
+
+        try (InputStream in = this.getClass().getResourceAsStream("config.yml")){
+            try {
+                Files.copy(in, pluginPath);
+            } catch (IOException e) {
+                logger.info("A config.yml has not been created because it already exists.");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
         YamlConfigurationLoader loader = YamlConfigurationLoader.builder()
                 .path(pluginPath.resolve("config.yml"))
                 .build();
