@@ -1,0 +1,1 @@
+{"id":"ratfilter","name":"Rat filter","version":"0.1.0-SNAPSHOT","description":"Filter for rats","url":"https://davamu.me","authors":["DaVaMu"],"dependencies":[],"main":"me.davamu.velocity.RatFilterVelocity"}

@@ -7,8 +7,8 @@ subprojects {
     plugins.apply("java")
     plugins.apply("com.github.johnrengelman.shadow")
 
-    group = "me.davamu"
-    version = "1.0-SNAPSHOT"
+    group = "${project.property("group")}"
+    version = "${project.property("version")}"
 
     repositories {
         mavenCentral()
@@ -43,7 +43,7 @@ tasks {
         }
     }
     shadowJar {
-        arrayOf("velocity").forEach {
+        arrayOf("bungeecord", "velocity").forEach {
             val buildTask = project(":$it").tasks.named("shadowJar")
             dependsOn(buildTask)
             from(zipTree(buildTask.map {out -> out.outputs.files.singleFile}))

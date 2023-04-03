@@ -14,7 +14,7 @@ import org.spongepowered.configurate.yaml.YamlConfigurationLoader;
 
 import java.nio.file.Path;
 
-@Plugin(id = "RatFilter", name = "Rat filter", version = "0.1.0-SNAPSHOT",
+@Plugin(id = "ratfilter", name = "Rat filter", version = "0.1.0-SNAPSHOT",
         url = "https://davamu.me", description = "Filter for rats", authors = {"DaVaMu"})
 public class RatFilterVelocity {
 

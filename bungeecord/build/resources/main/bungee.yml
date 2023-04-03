@@ -1,0 +1,5 @@
+name: ${name}
+main: ${group}.bungeecord.RatFilterBungeeCord
+version: ${version}
+description: ${description}
+author: ${author}
