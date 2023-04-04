@@ -42,7 +42,7 @@ public class PlayerChatListener {
         for (String word : words) {
             String wordLowerCase = word.toLowerCase(Locale.ROOT);
 
-            if (!wordLowerCase.contains(message)) continue;
+            if (!message.contains(wordLowerCase)) continue;
 
             Player player = event.getPlayer();
             String command = punishment + " " + player.getUsername() + " " + reason;

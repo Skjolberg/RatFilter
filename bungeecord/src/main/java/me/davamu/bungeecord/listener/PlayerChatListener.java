@@ -30,7 +30,7 @@ public class PlayerChatListener implements Listener {
         for (String word : words) {
             String wordLowerCase = word.toLowerCase(Locale.ROOT);
 
-            if (!wordLowerCase.contains(message)) continue;
+            if (!message.contains(wordLowerCase)) continue;
 
             Connection connection = event.getSender();
             if (!(connection instanceof ProxiedPlayer)) return;
