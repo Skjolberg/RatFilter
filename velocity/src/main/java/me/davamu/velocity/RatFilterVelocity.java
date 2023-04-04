@@ -23,7 +23,8 @@ import java.nio.file.Path;
         version = "0.1.0-SNAPSHOT",
         url = "https://davamu.me",
         description = "Filter for rats",
-        authors = {"DaVaMu"})
+        authors = {"DaVaMu"}
+)
 public class RatFilterVelocity {
 
     private final Path pluginPath;
@@ -49,17 +50,27 @@ public class RatFilterVelocity {
     }
 
     private ConfigurationNode registerConfig(Path pluginPath) {
-
-        try (InputStream in = this.getClass().getResourceAsStream("config.yml")){
+        // Plugin directory
+        if (Files.notExists(pluginPath)) {
             try {
-                Files.copy(in, pluginPath);
+                Files.createDirectory(pluginPath);
             } catch (IOException e) {
-                logger.info("A config.yml has not been created because it already exists.");
+                logger.error("Unable to create plugin directory", e);
             }
-        } catch (IOException e) {
-            e.printStackTrace();
         }
 
+        // Config directory
+        Path configPath = pluginPath.resolve("config.yml");
+        if (Files.notExists(configPath)) {
+            try (InputStream in = getClass().getClassLoader().getResourceAsStream("config.yml")) {
+                Files.copy(in, configPath);
+                logger.info("A config.yml has been created because it did not exist.");
+            } catch (IOException e) {
+                logger.error("Unable to create plugin configuration", e);
+            }
+        } else {
+            logger.info("A config.yml has not been created because it already exists.");
+        }
 
         YamlConfigurationLoader loader = YamlConfigurationLoader.builder()
                 .path(pluginPath.resolve("config.yml"))
